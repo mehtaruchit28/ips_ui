@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import Layout from '../components/layout/Layout'
 import { FiUsers, FiActivity, FiDollarSign, FiCheckCircle } from 'react-icons/fi'
+import { AgCharts } from 'ag-charts-react'
 
 export default function Home() {
   const cardBg = useColorModeValue('white', 'gray.800')
@@ -106,6 +107,64 @@ export default function Home() {
               </Stat>
             </CardBody>
           </Card>
+
+          <Card bg={cardBg} borderWidth="1px" borderColor={borderColor} shadow="sm" gridColumn={{ base: 'span 1', lg: 'span 2' }}>
+            <CardBody>
+              <AgCharts
+                options={{                
+                  data: [
+                    { month: 'Jan', value: 30 },
+                    { month: 'Feb', value: 45 },
+                    { month: 'Mar', value: 40 },
+                    { month: 'Apr', value: 60 },
+                    { month: 'May', value: 80 },
+                    { month: 'Jun', value: 70 },
+                    { month: 'Jul', value: 90 },
+                    { month: 'Aug', value: 100 },
+                    { month: 'Sep', value: 110 },
+                    { month: 'Oct', value: 130 },
+                    { month: 'Nov', value: 120 },
+                    { month: 'Dec', value: 150 },
+                  ],
+                  series: [
+                    {
+                      type: 'bar',
+                      xKey: 'month',
+                      yKey: 'value',
+                      stroke: '#3182CE',
+                      fill: '#63B3ED',
+                    },
+                  ]
+                }}
+              />
+            </CardBody>
+          </Card> 
+
+          <Card bg={cardBg} borderWidth="1px" borderColor={borderColor} shadow="sm" gridColumn={{ base: 'span 1', lg: 'span 2' }}>
+            <CardBody>
+              <AgCharts
+                options={{                
+                  data: [
+                    { asset: "Stocks", amount: 60000 },
+                    { asset: "Bonds", amount: 40000 },
+                    { asset: "Cash", amount: 7000 },
+                    { asset: "Real Estate", amount: 5000 },
+                    { asset: "Commodities", amount: 3000 }
+                  ],
+                    title: {
+                      text: "Portfolio Composition",
+                    },
+                    series: [
+                      {
+                        type: "pie",
+                        angleKey: "amount",
+                        legendItemKey: "asset",
+                      },
+                    ],
+                }}
+              />
+            </CardBody>
+          </Card> 
         </SimpleGrid>
 
         {/* Add more dashboard content here if needed */}

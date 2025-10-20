@@ -234,7 +234,7 @@ const Sidebar = ({ isOpen, onClose, onCollapse }: SidebarProps) => {
                   <VStack align="stretch" spacing={1}>
                     <NavItem
                       icon={FiMap}
-                      href="/reports/map"
+                      href="/state_county_map"
                       isCollapsed={isCollapsed}
                     >
                       State/County Map
