@@ -1,4 +1,4 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { Box, Heading,Card,CardBody } from '@chakra-ui/react'
 import Layout from '../components/layout/Layout'
 import {
   ComposableMap,
@@ -28,7 +28,8 @@ export default function StateCountyMap() {
             <Box p={6} minH="calc(100vh - 120px)">
                 <Heading>State/County Map</Heading>
                 
-
+<Card bg='white' w="70%" borderWidth="1px" borderColor='gray.100' size='sm' shadow="sm">
+                            <CardBody>
       <ComposableMap
         projection="geoAlbersUsa"
         width={980}
@@ -67,6 +68,8 @@ export default function StateCountyMap() {
           }
         </Geographies>
       </ComposableMap>
+      </CardBody>
+      </Card>
       </Box>
     </Layout>
   )
