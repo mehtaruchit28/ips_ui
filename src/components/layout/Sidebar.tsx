@@ -33,7 +33,8 @@ import {
   FiShield,
   FiPieChart,
   FiMap,
-  FiFileText
+  FiFileText,
+  FiUserCheck
 } from 'react-icons/fi'
 
 interface SidebarProps {
@@ -200,6 +201,13 @@ const Sidebar = ({ isOpen, onClose, onCollapse }: SidebarProps) => {
                       isCollapsed={isCollapsed}
                     >
                       Users
+                    </NavItem>
+                    <NavItem
+                      icon={FiUserCheck}
+                      href="/permissions"
+                      isCollapsed={isCollapsed}
+                    >
+                      Permissions
                     </NavItem>
                   </VStack>
                 </AccordionPanel>
