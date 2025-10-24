@@ -10,6 +10,7 @@ import {
 import { useState } from 'react'
 import { Tooltip } from 'react-tooltip';
 import { geoCentroid } from 'd3-geo';
+import AuthWrapper from '../components/Authentication/AuthWrapper';
 
 export default function StateCountyMap() {
   const [selectedState, setSelectedState] = useState('06'); // California FIPS code
@@ -159,6 +160,7 @@ export default function StateCountyMap() {
   const [error, setError] = useState("");
 
   return (
+    <AuthWrapper>
     <Layout>
       <Box p={2}>
         <Heading mb={4}>US State Counties Map</Heading>
@@ -298,5 +300,6 @@ export default function StateCountyMap() {
           )}
           <Tooltip id="county-tooltip" style={{ backgroundColor: "#333", color: "#fff", padding: "8px 12px", borderRadius: "4px", fontSize: "14px" }} />
     </Layout>
+    </AuthWrapper>
   );
 }

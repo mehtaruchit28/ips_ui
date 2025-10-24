@@ -17,6 +17,7 @@ import {
 import Layout from '../components/layout/Layout'
 import { FiUsers, FiActivity, FiDollarSign, FiCheckCircle } from 'react-icons/fi'
 import { AgCharts } from 'ag-charts-react'
+import AuthWrapper from '../components/Authentication/AuthWrapper'; 
 
 export default function Home() {
   const cardBg = useColorModeValue('white', 'gray.800')
@@ -28,6 +29,7 @@ export default function Home() {
   )
 
   return (
+    <AuthWrapper>
     <Layout>
       <Box bgGradient={bgGradient} minH="calc(100vh - 120px)" py={6}>
         <Container maxW="container.xl">
@@ -171,5 +173,6 @@ export default function Home() {
       </Container>
       </Box>
     </Layout>
+    </AuthWrapper>
   )
 }

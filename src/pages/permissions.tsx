@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import Layout from '../components/layout/Layout';
+import AuthWrapper from '../components/Authentication/AuthWrapper';
 
 // Predefined reports list
 const AVAILABLE_REPORTS = [
@@ -183,139 +184,141 @@ export default function Permissions() {
   const isDefaultRole = ['Admin', 'Manager', 'Member'].includes(selectedRole);
 
   return (
-    <Layout>
-      <Box p={6} minH="calc(100vh - 120px)">
-        <Heading mb={6}>Role Permissions Management</Heading>
+    <AuthWrapper>
+      <Layout>
+        <Box p={6} minH="calc(100vh - 120px)">
+          <Heading mb={6}>Role Permissions Management</Heading>
 
-        <VStack spacing={6} align="stretch">
-          {/* Role Selection Section */}
-          <Card>
-            <CardHeader>
-              <Heading size="md">Select Role</Heading>
-            </CardHeader>
-            <CardBody>
-              <VStack spacing={4} align="stretch">
-                <HStack spacing={4}>
-                  <FormControl flex={1}>
-                    <FormLabel>Choose Role</FormLabel>
-                    <Select
-                      value={selectedRole}
-                      onChange={(e) => setSelectedRole(e.target.value)}
-                    >
-                      {Object.keys(roles).map((roleName) => (
-                        <option key={roleName} value={roleName}>
-                          {roleName}
-                        </option>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  {!isDefaultRole && (
-                    <IconButton
-                      aria-label="Delete role"
-                      icon={<DeleteIcon />}
-                      colorScheme="red"
-                      mt={8}
-                      onClick={() => handleDeleteRole(selectedRole)}
-                    />
-                  )}
-                </HStack>
-
-                <Divider />
-
-                {/* Create New Role */}
-                {!isCreatingRole ? (
-                  <Button
-                    leftIcon={<AddIcon />}
-                    colorScheme="blue"
-                    variant="outline"
-                    onClick={() => setIsCreatingRole(true)}
-                  >
-                    Create Custom Role
-                  </Button>
-                ) : (
+          <VStack spacing={6} align="stretch">
+            {/* Role Selection Section */}
+            <Card>
+              <CardHeader>
+                <Heading size="md">Select Role</Heading>
+              </CardHeader>
+              <CardBody>
+                <VStack spacing={4} align="stretch">
                   <HStack spacing={4}>
-                    <Input
-                      placeholder="Enter new role name"
-                      value={newRoleName}
-                      onChange={(e) => setNewRoleName(e.target.value)}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') handleCreateRole();
-                      }}
-                    />
-                    <Button colorScheme="green" onClick={handleCreateRole}>
-                      Create
+                    <FormControl flex={1}>
+                      <FormLabel>Choose Role</FormLabel>
+                      <Select
+                        value={selectedRole}
+                        onChange={(e) => setSelectedRole(e.target.value)}
+                      >
+                        {Object.keys(roles).map((roleName) => (
+                          <option key={roleName} value={roleName}>
+                            {roleName}
+                          </option>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    {!isDefaultRole && (
+                      <IconButton
+                        aria-label="Delete role"
+                        icon={<DeleteIcon />}
+                        colorScheme="red"
+                        mt={8}
+                        onClick={() => handleDeleteRole(selectedRole)}
+                      />
+                    )}
+                  </HStack>
+
+                  <Divider />
+
+                  {/* Create New Role */}
+                  {!isCreatingRole ? (
+                    <Button
+                      leftIcon={<AddIcon />}
+                      colorScheme="blue"
+                      variant="outline"
+                      onClick={() => setIsCreatingRole(true)}
+                    >
+                      Create Custom Role
+                    </Button>
+                  ) : (
+                    <HStack spacing={4}>
+                      <Input
+                        placeholder="Enter new role name"
+                        value={newRoleName}
+                        onChange={(e) => setNewRoleName(e.target.value)}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') handleCreateRole();
+                        }}
+                      />
+                      <Button colorScheme="green" onClick={handleCreateRole}>
+                        Create
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          setIsCreatingRole(false);
+                          setNewRoleName('');
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    </HStack>
+                  )}
+                </VStack>
+              </CardBody>
+            </Card>
+
+            {/* Report Permissions Section */}
+            <Card>
+              <CardHeader>
+                <HStack justify="space-between">
+                  <Heading size="md">
+                    Assign Reports to {selectedRole}
+                  </Heading>
+                  <HStack spacing={2}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleSelectAll}
+                    >
+                      Select All
                     </Button>
                     <Button
-                      variant="ghost"
-                      onClick={() => {
-                        setIsCreatingRole(false);
-                        setNewRoleName('');
-                      }}
+                      size="sm"
+                      variant="outline"
+                      onClick={handleDeselectAll}
                     >
-                      Cancel
+                      Deselect All
                     </Button>
                   </HStack>
-                )}
-              </VStack>
-            </CardBody>
-          </Card>
-
-          {/* Report Permissions Section */}
-          <Card>
-            <CardHeader>
-              <HStack justify="space-between">
-                <Heading size="md">
-                  Assign Reports to {selectedRole}
-                </Heading>
-                <HStack spacing={2}>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleSelectAll}
-                  >
-                    Select All
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleDeselectAll}
-                  >
-                    Deselect All
-                  </Button>
                 </HStack>
-              </HStack>
-            </CardHeader>
-            <CardBody>
-              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
-                {AVAILABLE_REPORTS.map((report) => (
-                  <Checkbox
-                    key={report}
-                    isChecked={currentPermissions.includes(report)}
-                    onChange={() => handleReportToggle(report)}
-                    colorScheme="blue"
-                  >
-                    {report}
-                  </Checkbox>
-                ))}
-              </SimpleGrid>
+              </CardHeader>
+              <CardBody>
+                <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
+                  {AVAILABLE_REPORTS.map((report) => (
+                    <Checkbox
+                      key={report}
+                      isChecked={currentPermissions.includes(report)}
+                      onChange={() => handleReportToggle(report)}
+                      colorScheme="blue"
+                    >
+                      {report}
+                    </Checkbox>
+                  ))}
+                </SimpleGrid>
 
-              <Box mt={6}>
-                <Text fontSize="sm" color="gray.600">
-                  Selected: {currentPermissions.length} of{' '}
-                  {AVAILABLE_REPORTS.length} reports
-                </Text>
-              </Box>
-            </CardBody>
-          </Card>
+                <Box mt={6}>
+                  <Text fontSize="sm" color="gray.600">
+                    Selected: {currentPermissions.length} of{' '}
+                    {AVAILABLE_REPORTS.length} reports
+                  </Text>
+                </Box>
+              </CardBody>
+            </Card>
 
-          {/* Save Button */}
-          <HStack justify="flex-end">
-            <Button colorScheme="blue" size="lg" onClick={handleSavePermissions}>
-              Save Permissions
-            </Button>
-          </HStack>
-        </VStack>
-      </Box>
-    </Layout>
+            {/* Save Button */}
+            <HStack justify="flex-end">
+              <Button colorScheme="blue" size="lg" onClick={handleSavePermissions}>
+                Save Permissions
+              </Button>
+            </HStack>
+          </VStack>
+        </Box>
+      </Layout>
+    </AuthWrapper>
   );
 }

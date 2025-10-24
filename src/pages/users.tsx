@@ -27,6 +27,7 @@ import {
     Icon
 } from '@chakra-ui/react';
 import Layout from '../components/layout/Layout';
+import AuthWrapper from '../components/Authentication/AuthWrapper';
 type UserRole = 'Admin' | 'Manager' | 'Member';
 
 interface User {
@@ -67,89 +68,90 @@ export default function users() {
   };
 
     return (
-        <Layout>
-            <Box bgGradient={bgGradient} minH="calc(100vh - 120px)" py={6}>
-                <Heading mb={4}>Users</Heading>
-                <Button colorScheme="teal" onClick={onOpen} mb={4}>
-                    Add User
-                </Button>
+        <AuthWrapper>
+            <Layout>
+                <Box bgGradient={bgGradient} minH="calc(100vh - 120px)" py={6}>
+                    <Heading mb={4}>Users</Heading>
+                    <Button colorScheme="teal" onClick={onOpen} mb={4}>
+                        Add User
+                    </Button>
 
-                <TableContainer>
-                    <Table variant="striped"  colorScheme="blackAlpha">
-                        <Thead>
-                            <Tr>
-                                <Th>Name</Th>
-                                <Th>Email</Th>
-                                <Th>Role</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {users.map((user) => (
-                                <Tr key={user.id}>
-                                    <Td>{user.name}</Td>
-                                    <Td>{user.email}</Td>
-                                    <Td>{user.role}</Td>
+                    <TableContainer>
+                        <Table variant="striped" colorScheme="blackAlpha">
+                            <Thead>
+                                <Tr>
+                                    <Th>Name</Th>
+                                    <Th>Email</Th>
+                                    <Th>Role</Th>
                                 </Tr>
-                            ))}
-                        </Tbody>
-                    </Table>
-                </TableContainer>
+                            </Thead>
+                            <Tbody>
+                                {users.map((user) => (
+                                    <Tr key={user.id}>
+                                        <Td>{user.name}</Td>
+                                        <Td>{user.email}</Td>
+                                        <Td>{user.role}</Td>
+                                    </Tr>
+                                ))}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
 
-                <Modal isOpen={isOpen} onClose={onClose} isCentered>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>Add New User</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-                            <VStack spacing={4} align="stretch">
-                                <FormControl isRequired>
-                                    <FormLabel>Name</FormLabel>
-                                    <Input
-                                        placeholder="Full Name"
-                                        name="name"
-                                        value={newUser.name}
-                                        onChange={handleInputChange}
-                                    />
-                                </FormControl>
+                    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalHeader>Add New User</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+                                <VStack spacing={4} align="stretch">
+                                    <FormControl isRequired>
+                                        <FormLabel>Name</FormLabel>
+                                        <Input
+                                            placeholder="Full Name"
+                                            name="name"
+                                            value={newUser.name}
+                                            onChange={handleInputChange}
+                                        />
+                                    </FormControl>
 
-                                <FormControl isRequired>
-                                    <FormLabel>Email</FormLabel>
-                                    <Input
-                                        placeholder="Email"
-                                        type="email"
-                                        name="email"
-                                        value={newUser.email}
-                                        onChange={handleInputChange}
-                                    />
-                                </FormControl>
+                                    <FormControl isRequired>
+                                        <FormLabel>Email</FormLabel>
+                                        <Input
+                                            placeholder="Email"
+                                            type="email"
+                                            name="email"
+                                            value={newUser.email}
+                                            onChange={handleInputChange}
+                                        />
+                                    </FormControl>
 
-                                <FormControl isRequired>
-                                    <FormLabel>Role</FormLabel>
-                                    <Select
-                                        name="role"
-                                        value={newUser.role}
-                                        onChange={handleInputChange}
-                                    >
-                                        <option value="Admin">Admin</option>
-                                        <option value="Manager">Manager</option>
-                                        <option value="Member">Member</option>
-                                    </Select>
-                                </FormControl>
-                            </VStack>
-                        </ModalBody>
+                                    <FormControl isRequired>
+                                        <FormLabel>Role</FormLabel>
+                                        <Select
+                                            name="role"
+                                            value={newUser.role}
+                                            onChange={handleInputChange}
+                                        >
+                                            <option value="Admin">Admin</option>
+                                            <option value="Manager">Manager</option>
+                                            <option value="Member">Member</option>
+                                        </Select>
+                                    </FormControl>
+                                </VStack>
+                            </ModalBody>
 
-                        <ModalFooter>
-                            <Button colorScheme="teal" mr={3} onClick={handleAddUser}>
-                                Add
-                            </Button>
-                            <Button variant="ghost" onClick={onClose}>
-                                Cancel
-                            </Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
-            </Box>
-        </Layout>
-
+                            <ModalFooter>
+                                <Button colorScheme="teal" mr={3} onClick={handleAddUser}>
+                                    Add
+                                </Button>
+                                <Button variant="ghost" onClick={onClose}>
+                                    Cancel
+                                </Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
+                </Box>
+            </Layout>
+        </AuthWrapper>
     )
 }

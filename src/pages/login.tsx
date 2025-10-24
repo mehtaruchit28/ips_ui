@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { AuthService } from '../services/AuthService' // Import your AuthService here
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -24,13 +25,14 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // Add your authentication logic here
-    if (email && password) {
+    const result = await AuthService.login(email, password);
+    if (result) {
       // For demo purposes, just redirect to home
       router.push('/home')
     } else {
       toast({
         title: 'Error',
-        description: 'Please fill in all fields',
+        description: 'Invalid email or password',
         status: 'error',
         duration: 3000,
         isClosable: true,

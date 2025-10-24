@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, BellIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { useRouter } from 'next/router'
+import { AuthService } from '../../services/AuthService';
 interface HeaderProps {
   onShowSidebar: () => void
   showSidebarButton?: boolean
@@ -26,6 +27,11 @@ const Header = ({ showSidebarButton = true, onShowSidebar, isCollapsed }: Header
   const bg = 'gray.800'
   const borderColor = useColorModeValue('gray.200', 'gray.700')
   const router = useRouter()
+  const handleLogout = () => {
+    // Implement logout logic here
+    AuthService.logout();
+    router.push('/login');
+  }
   return (
     <Flex
       as="header"
@@ -73,7 +79,7 @@ const Header = ({ showSidebarButton = true, onShowSidebar, isCollapsed }: Header
           </MenuButton>
           <MenuList>
             <MenuItem onClick={() => {router.push('/change_password')}}>Change Password</MenuItem>
-            <MenuItem onClick={() => {router.push('/login')}}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </MenuList>
         </Menu>
       </HStack>
