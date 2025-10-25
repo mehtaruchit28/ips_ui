@@ -122,3 +122,5 @@ const theme = extendTheme({
     card: '0 2px 8px rgba(0, 0, 0, 0.06)',
   },
 })
+
+export default theme
